@@ -1,0 +1,45 @@
+
+# Data manipulation
+pandas
+numpy
+scipy
+
+# Data visualization
+matplotlib
+seaborn
+plotly
+
+# Machine Learning and preprocessing
+scikit-learn
+imbalanced-learn
+
+# Gradient boosting
+xgboost
+lightgbm
+
+# Explainable AI
+shap
+lime
+
+# Model persistence
+joblib
+
+# API
+fastapi
+uvicorn[standard]
+pydantic
+
+# Interactive dashboard
+streamlit
+requests
+
+# Experiment tracking
+mlflow
+
+# Testing and code quality
+pytest
+ruff
+
+# Jupyter
+jupyter
+ipykernel

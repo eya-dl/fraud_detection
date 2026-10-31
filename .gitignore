@@ -1,0 +1,25 @@
+# Données 
+data/
+*.parquet
+*.csv
+
+# MLflow 
+mlflow.db
+mlruns/
+mlartifacts/
+
+# Résultats générés
+results/
+
+# Python / Jupyter
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.venv/
+venv/
+.env
+
+# OS / éditeurs
+.DS_Store
+.vscode/
+.idea/

@@ -1,0 +1,43 @@
+# Détection de fraude : modèles supervisés et non supervisés, suivi MLflow et tableau de bord
+
+Comparaison de modèles de détection de fraude sur des transactions de type PaySim, avec suivi des expériences dans MLflow et un tableau de bord Streamlit.
+
+## Contenu
+
+| Dossier / fichier | Rôle |
+|---|---|
+| `notebooks/supervised_fraud_detection.ipynb` | Logistic Regression, Random Forest, XGBoost × (baseline, pondération des classes, SMOTENC) |
+| `notebooks/unsupervised_fraud_detection.ipynb` | Isolation Forest, One-Class SVM, LOF avec balayage de la contamination |
+| `app/fraud_dashboard.py` | Tableau de bord Streamlit qui lit les runs MLflow |
+
+Les deux notebooks écrivent dans la même expérience MLflow (`Fraud_Detection_Experiments`) avec le même schéma de tags, métriques et artefacts (décrit à la fin de chaque notebook), ce qui rend les deux familles comparables.
+
+## Données
+
+Les données ne sont pas versionnées. Placer le fichier prétraité dans `data/processed/fraud_eda_features.parquet` (issu de l'étape d'EDA / prétraitement). Colonnes attendues : `step`, `type`, `amount`, `oldbalanceOrg`, `oldbalanceDest`, `amount_nul`, `ratioOrig_nul`, `ratioDest_nul`, `isFraud`.
+
+## Installation
+
+```bash
+python -m venv .venv
+source .venv/bin/activate        # Windows : .venv\Scripts\activate
+pip install -r requirements.txt
+```
+
+## Utilisation
+
+1. Ouvrir les notebooks depuis le dossier `notebooks/` et les exécuter (commencer par `QUICK_RUN = True` pour vérifier que tout passe).
+2. Lancer le tableau de bord, toujours depuis `notebooks/` (là où se trouve `mlflow.db`) :
+
+```bash
+cd notebooks
+streamlit run ../app/fraud_dashboard.py
+```
+
+3. Optionnel, interface MLflow native : `mlflow ui --backend-store-uri sqlite:///mlflow.db`
+
+## Choix méthodologiques
+
+- Découpage temporel : entraînement, validation (choix du seuil), test (dernières périodes).
+- Uniquement des variables connues avant la transaction (pas de `newbalance*`).
+- Métriques principales : PR-AUC, rappel au budget d'alertes, montant frauduleux retrouvé.
